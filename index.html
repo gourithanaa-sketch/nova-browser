@@ -1,0 +1,415 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVA Browser</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #090b15;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  height: 65px;
+  background: #111629;
+  border-bottom: 1px solid #292e49;
+  display: flex;
+  align-items: center;
+  padding: 0 25px;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.logo span {
+  color: #a477ff;
+}
+
+nav button {
+  background: transparent;
+  color: white;
+  border: 0;
+  padding: 12px;
+  cursor: pointer;
+}
+
+nav button:hover {
+  color: #a477ff;
+}
+
+.hero {
+  text-align: center;
+  padding: 65px 15px 35px;
+}
+
+.hero h1 {
+  font-size: 55px;
+  margin: 0;
+}
+
+.hero h1 span {
+  color: #a477ff;
+}
+
+.hero p {
+  color: #9ba5c4;
+}
+
+.search {
+  display: flex;
+  max-width: 650px;
+  margin: 30px auto;
+  gap: 10px;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 17px;
+  border-radius: 12px;
+  border: 1px solid #343c5b;
+  background: #151c32;
+  color: white;
+  font-size: 16px;
+}
+
+button, a {
+  cursor: pointer;
+}
+
+.search button, .primary {
+  background: #986cff;
+  color: white;
+  border: 0;
+  border-radius: 12px;
+  padding: 15px 22px;
+  font-weight: bold;
+}
+
+main {
+  max-width: 1050px;
+  margin: auto;
+  padding: 20px;
+}
+
+h2 {
+  font-size: 21px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(145px,1fr));
+  gap: 15px;
+}
+
+.card {
+  background: #151c30;
+  border: 1px solid #293452;
+  border-radius: 15px;
+  padding: 20px;
+  color: white;
+  text-decoration: none;
+  transition: .2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: #a477ff;
+}
+
+.card .emoji {
+  font-size: 30px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.card small {
+  display: block;
+  color: #929dbb;
+  margin-top: 6px;
+}
+
+section {
+  margin-bottom: 45px;
+}
+
+.game {
+  background: #151c30;
+  border: 1px solid #303959;
+  border-radius: 18px;
+  padding: 20px;
+  text-align: center;
+}
+
+canvas {
+  width: 100%;
+  max-width: 600px;
+  background: #080d1c;
+  border: 1px solid #414b70;
+  border-radius: 12px;
+}
+
+footer {
+  text-align: center;
+  color: #8993b0;
+  padding: 30px;
+  font-size: 13px;
+}
+
+@media(max-width:600px) {
+  .hero h1 {font-size: 38px;}
+  nav button {padding: 7px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">NOVA<span>.</span></div>
+  <nav>
+    <button onclick="go('home')">Home</button>
+    <button onclick="go('sites')">Websites</button>
+    <button onclick="go('games')">Games</button>
+  </nav>
+</header>
+
+<div id="home">
+  <div class="hero">
+    <h1>Welcome to <span>NOVA</span></h1>
+    <p>Your web launchpad. Your arcade. Your space.</p>
+
+    <form class="search" onsubmit="searchWeb(event)">
+      <input id="searchBox"
+      placeholder="Search or enter a website...">
+      <button type="submit">Search</button>
+    </form>
+  </div>
+</div>
+
+<main>
+
+<section id="sites">
+  <h2>🌐 Websites</h2>
+
+  <div class="grid">
+
+    <a class="card" href="https://google.com" target="_blank" rel="noopener">
+      <span class="emoji">🔎</span>
+      Google
+      <small>Search the web</small>
+    </a>
+
+    <a class="card" href="https://youtube.com" target="_blank" rel="noopener">
+      <span class="emoji">▶️</span>
+      YouTube
+      <small>Watch videos</small>
+    </a>
+
+    <a class="card" href="https://tiktok.com" target="_blank" rel="noopener">
+      <span class="emoji">🎵</span>
+      TikTok
+      <small>Short videos</small>
+    </a>
+
+    <a class="card" href="https://wikipedia.org" target="_blank" rel="noopener">
+      <span class="emoji">📚</span>
+      Wikipedia
+      <small>Explore knowledge</small>
+    </a>
+
+    <a class="card" href="https://coolmathgames.com" target="_blank" rel="noopener">
+      <span class="emoji">🎮</span>
+      Coolmath Games
+      <small>Play games</small>
+    </a>
+
+    <a class="card" href="https://itch.io/games/html5" target="_blank" rel="noopener">
+      <span class="emoji">🕹️</span>
+      itch.io
+      <small>Browser games</small>
+    </a>
+
+  </div>
+</section>
+
+<section id="games">
+  <h2>🎮 NOVA ARCADE</h2>
+
+  <div class="game">
+    <h3>⭐ Star Catcher</h3>
+    <p>Catch stars. Avoid rocks!</p>
+
+    <canvas id="game" width="600" height="300"></canvas>
+
+    <p id="score">Score: 0</p>
+
+    <button class="primary" onclick="startGame()">
+      Start Game
+    </button>
+
+    <p style="color:#929dbb">
+      Controls: Arrow keys or A and D
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  NOVA BROWSER © 2026
+</footer>
+
+<script>
+function searchWeb(event) {
+  event.preventDefault();
+
+  let q = document.getElementById("searchBox").value.trim();
+
+  if (!q) return;
+
+  let url;
+
+  if (/^https?:\/\//i.test(q)) {
+    url = q;
+  } else if (/^[\w.-]+\.[a-z]{2,}(\/.*)?$/i.test(q)) {
+    url = "https://" + q;
+  } else {
+    url = "https://www.google.com/search?q=" +
+      encodeURIComponent(q);
+  }
+
+  window.open(url, "_blank", "noopener");
+}
+
+function go(id) {
+  document.getElementById(id).scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+// NOVA ARCADE
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+let player = {x:280, y:260, w:40, h:20};
+let objects = [];
+let score = 0;
+let running = false;
+let keys = {};
+let frame = 0;
+let animation;
+
+document.addEventListener("keydown", e => {
+  keys[e.key.toLowerCase()] = true;
+});
+
+document.addEventListener("keyup", e => {
+  keys[e.key.toLowerCase()] = false;
+});
+
+function draw() {
+  ctx.clearRect(0,0,600,300);
+
+  ctx.fillStyle = "#a477ff";
+  ctx.fillRect(player.x,player.y,player.w,player.h);
+
+  ctx.font = "22px Arial";
+
+  objects.forEach(o => {
+    ctx.fillText(o.type === "star" ? "⭐" : "🪨",
+      o.x,o.y);
+  });
+}
+
+function startGame() {
+  cancelAnimationFrame(animation);
+
+  player.x = 280;
+  objects = [];
+  score = 0;
+  frame = 0;
+  running = true;
+
+  document.getElementById("score").textContent =
+    "Score: 0";
+
+  loop();
+}
+
+function loop() {
+  if (!running) return;
+
+  if (keys["arrowleft"] || keys["a"])
+    player.x -= 5;
+
+  if (keys["arrowright"] || keys["d"])
+    player.x += 5;
+
+  player.x = Math.max(0,Math.min(560,player.x));
+
+  frame++;
+
+  if (frame % 35 === 0) {
+    objects.push({
+      x:Math.random()*570,
+      y:-10,
+      type:Math.random() < .8 ? "star" : "rock"
+    });
+  }
+
+  objects.forEach(o => {
+    o.y += 3;
+  });
+
+  objects = objects.filter(o => {
+    if (o.y > 300) return false;
+
+    if (
+      o.x > player.x-12 &&
+      o.x < player.x+player.w+12 &&
+      o.y > player.y-12 &&
+      o.y < player.y+player.h+12
+    ) {
+      if (o.type === "star") {
+        score++;
+        document.getElementById("score").textContent =
+          "Score: " + score;
+      } else {
+        running = false;
+        document.getElementById("score").textContent =
+          "Game over! Final score: " + score;
+      }
+
+      return false;
+    }
+
+    return true;
+  });
+
+  draw();
+
+  if (running) {
+    animation = requestAnimationFrame(loop);
+  }
+}
+
+draw();
+</script>
+
+</body>
+</html>
